@@ -1,0 +1,36 @@
+#include <Servo.h>
+Servo myservo;
+int pos = 0; // Variable to store the servo position.
+int inputPhotoLeft = 1; // Easier to read, instead of just 1 or 0.
+int inputPhotoRight = 0;
+int Left = 0; // Store readings from the photoresistors.
+int Right = 0; // Store readings from the photoresistors.
+void setup()
+{
+myservo.attach(9); // Attach servo to pin 9.
+}
+void loop()
+{
+// Reads the values from the photoresistors to the Left and Right variables.
+Left = analogRead(inputPhotoLeft);
+Right = analogRead(inputPhotoRight);
+// Checks if right is greater than left, if so move to right.
+if (Left > (Right +20))
+35
+// +20 is the deadzone, so it wont jiggle back and forth.
+{
+if (pos < 55)
+pos++;
+myservo.write(pos);
+}
+// Checks if left is greater than right, if so move to left.
+if (Right > (Left +20))
+// +20 is the deadzone, so it wont jiggle back and forth.
+{
+if (pos > 1)
+pos -= 1;
+myservo.write(pos);
+}
+// Added some delay, increase or decrease if you want less or more speed.
+delay(60);
+}
